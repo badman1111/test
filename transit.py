@@ -16,3 +16,9 @@ def day_money(code,date):
         FROM public."202011" where code =%(code)s and date=%(date)s'
     d = pd.read_sql_query(sqls,engine,params={'code':code,'date':date})
     return d
+
+def day_money_1(codedate):
+    sqls = 'SELECT "index", "time", price, "change", volume, amount, "type", code, "date",code_day\
+        FROM public."202011" where code_day=%(codedate)s'
+    d = pd.read_sql_query(sqls,engine,params={'codedate':codedate})
+    return d
