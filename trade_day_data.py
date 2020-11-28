@@ -7,8 +7,8 @@ engine = create_engine('postgresql://stock:stock@127.0.0.1/stocks')
 pro =ts.pro_api(token)
 #获取所有2010年至2020年的数据
 day = pro.trade_cal(exchange='SSE', is_open='1', 
-                            start_date='20200801', 
-                            end_date='20201114', 
+                            start_date='20201123', 
+                            end_date='20201123', 
                             fields='cal_date')
 #
 #
@@ -27,12 +27,14 @@ def get_daily(self, ts_code='', trade_date='', start_date='', end_date=''):
         else:
                 return df
 
-for date in day['cal_date']:
+for date in day['cal_date'].values:
     df = get_daily(date)
     if df is not None:
+        print(df)
         df.to_sql('day_value',engine,if_exists='append')
         print(date,'success')     
     
     else:
+        print(df)
         print(date,'error')
         continue
